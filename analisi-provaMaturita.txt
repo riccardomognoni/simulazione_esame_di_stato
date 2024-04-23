@@ -1,0 +1,25 @@
+ANALISI:
+
+ENTITA':
+-biciclette: tag (RFID) riconoscitivo
+-stazioni
+-utenti
+-registrazione
+-smart card
+-slot
+-lettore
+-noleggio: id bicicletta, id utente, data e ora, id stazione
+-mappa
+
+
+
+CASI D'USO:
+utente non registrato:  
+-registra
+-mappa
+
+utente: 
+-registrazione
+-noleggia bici
+-riconsegna bici
+-visualizza mappa
