@@ -33,7 +33,7 @@ CREATE TABLE `admin` (
   `cognome` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `email` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `password` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -49,7 +49,7 @@ CREATE TABLE `bicicletta` (
   `gps` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `RFID` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `attiva` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -66,7 +66,7 @@ CREATE TABLE `cliente` (
   `numero_tessera` int(11) NOT NULL,
   `carta_credito` int(11) NOT NULL,
   `IDindirizzo` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -81,7 +81,7 @@ CREATE TABLE `indirizzo` (
   `CAP` int(11) NOT NULL,
   `provincia` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `regione` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -99,7 +99,7 @@ CREATE TABLE `operazione` (
   `IDcliente` int(11) NOT NULL,
   `IDbicicletta` int(11) NOT NULL,
   `IDstazione` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -112,7 +112,7 @@ CREATE TABLE `stazione` (
   `codice` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `numero_slot` int(11) NOT NULL,
   `IDindirizzo` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Indici per le tabelle scaricate
