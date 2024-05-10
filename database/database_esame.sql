@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 03, 2024 alle 12:03
+-- Creato il: Mag 10, 2024 alle 08:27
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -29,10 +29,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin` (
   `ID` int(11) NOT NULL,
-  `nome` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `cognome` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `email` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `password` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+  `nome` varchar(32) NOT NULL,
+  `cognome` varchar(32) NOT NULL,
+  `email` varchar(64) NOT NULL,
+  `password` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -43,11 +43,10 @@ CREATE TABLE `admin` (
 
 CREATE TABLE `bicicletta` (
   `ID` int(11) NOT NULL,
-  `codice` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `distanza_totale` float NOT NULL,
-  `posizione_attuale` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `gps` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `RFID` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `posizione_attuale` varchar(64) NOT NULL,
+  `gps` varchar(16) NOT NULL,
+  `RFID` varchar(16) NOT NULL,
   `attiva` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -59,12 +58,12 @@ CREATE TABLE `bicicletta` (
 
 CREATE TABLE `cliente` (
   `ID` int(11) NOT NULL,
-  `nome` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `cognome` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `email` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `password` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `numero_tessera` int(11) NOT NULL,
-  `carta_credito` int(11) NOT NULL,
+  `nome` varchar(32) NOT NULL,
+  `cognome` varchar(32) NOT NULL,
+  `email` varchar(64) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `numero_tessera` int(5) NOT NULL,
+  `carta_credito` int(16) NOT NULL,
   `IDindirizzo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -76,11 +75,11 @@ CREATE TABLE `cliente` (
 
 CREATE TABLE `indirizzo` (
   `ID` int(11) NOT NULL,
-  `via` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `citta` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `via` varchar(64) NOT NULL,
+  `citta` varchar(32) NOT NULL,
   `CAP` int(11) NOT NULL,
-  `provincia` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `regione` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+  `provincia` varchar(2) NOT NULL,
+  `regione` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -91,7 +90,7 @@ CREATE TABLE `indirizzo` (
 
 CREATE TABLE `operazione` (
   `ID` int(11) NOT NULL,
-  `tipo` enum('noleggio','riconsegna') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `tipo` enum('noleggio','riconsegna') NOT NULL,
   `data` date NOT NULL,
   `orario` datetime NOT NULL,
   `tariffa` float NOT NULL,
@@ -109,7 +108,7 @@ CREATE TABLE `operazione` (
 
 CREATE TABLE `stazione` (
   `ID` int(11) NOT NULL,
-  `codice` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `nome` varchar(16) NOT NULL,
   `numero_slot` int(11) NOT NULL,
   `IDindirizzo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -129,8 +128,7 @@ ALTER TABLE `admin`
 -- Indici per le tabelle `bicicletta`
 --
 ALTER TABLE `bicicletta`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `codice` (`codice`);
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Indici per le tabelle `cliente`
@@ -160,7 +158,7 @@ ALTER TABLE `operazione`
 --
 ALTER TABLE `stazione`
   ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `codice` (`codice`),
+  ADD UNIQUE KEY `codice` (`nome`),
   ADD KEY `IDindirizzo` (`IDindirizzo`);
 
 --
