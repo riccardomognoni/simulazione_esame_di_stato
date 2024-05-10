@@ -19,7 +19,7 @@
         if (!isset($_SESSION))
             session_start();
         ?>
-        <h2>LOGIN </h2>
+        <h2>LOGIN ADMIN</h2>
         <input type="text" name="username" id="email" placeholder="email"><br>
         <input type="password" name="password" id="password" placeholder="password"><br>
         <button class="b" type="button" onclick="login('a')">Login</button><br><br>

@@ -20,7 +20,7 @@
             session_start();
         ?>
         <h2>LOGIN </h2>
-        <input type="text" name="username" id="email" placeholder="email"><br>
+        <input type="text" name="" id="email" placeholder="email"><br>
         <input type="password" name="password" id="password" placeholder="password"><br>
         <button class="b" type="button" onclick="login('c')">Login</button><br><br>
         <a href="loginAdmin.php">Sei un amministratore? accedi alla tua area privata</a>
