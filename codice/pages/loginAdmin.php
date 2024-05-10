@@ -4,12 +4,13 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <!--per la password-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-    <link href="../style/style.css" rel="stylesheet">
+    <link href="../style/loginStyle.css" rel="stylesheet">
     <script src="../js/login.js">
 
 
 
     </script>
+  
 </head>
 
 <body>
