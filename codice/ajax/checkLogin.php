@@ -42,6 +42,7 @@ global $host, $user, $psw, $dbname;
         //salvo la variabile username in sessione
         session_start();
         $_SESSION["ID"] = $row["ID"];
+        $_SESSION["nome_cognome"]=$row["nome"]." ".$row["cognome"];
         $arr = array("status" => "ok", "message" => $message);
         echo json_encode($arr);
     } else {
