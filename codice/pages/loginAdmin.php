@@ -14,7 +14,8 @@
 </head>
 
 <body>
-    <div id="formLogin">
+<div class="container">
+    <div id="formLogin" class="form-box">
         <?php
         //controllo sessione
         if (!isset($_SESSION))
@@ -25,6 +26,7 @@
         <input type="password" name="password" id="password" placeholder="password"><br>
         <button class="b" type="button" onclick="login('a')">Login</button><br><br>
     </div>
+</div>
 </body>
 
 </html>

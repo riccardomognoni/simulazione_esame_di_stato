@@ -20,9 +20,6 @@
 
 
             let via = $("#via").val();
-            let cap = $("#cap").val();
-            let regione = $("#regione").val();
-            let provincia = $("#provincia").val();
             let citta = $("#citta").val();
 
 
@@ -67,9 +64,6 @@
         Indirizzo:
         <input type="text" name="" id="via" placeholder="via"><br>
         <input type="text" name="" id="citta" placeholder="città"><br>
-        <input type="text" name="" id="provincia" placeholder="provincia"><br>
-        <input type="text" name="" id="cap" placeholder="CAP"><br>
-        <input type="text" name="" id="regione" placeholder="regione"><br>
         <button class="b" type="button" onclick="registra()">Registrati</button><br><br>
     </div>
 </body>

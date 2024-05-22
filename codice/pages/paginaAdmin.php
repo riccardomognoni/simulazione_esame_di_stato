@@ -15,7 +15,8 @@
 </head>
 
 <body>
-    <div id="formLogin">
+    <div class="container">
+    <div id="formLogin" class="form-box">
         <?php
         //controllo sessione
         if (!isset($_SESSION))
@@ -27,6 +28,7 @@
         <button class="b" type="button" onclick="goToStazioni()">Aggiungi/Rimuovi Stazione</button><br><br>
         <button class="b" type="button" onclick="deleteStazione()">Aggiungi/Rimuovi Bicicletta</button><br><br>
         <button class="b" type="button" onclick="logout()">logout</button><br><br>
+    </div>
     </div>
 </body>
 
