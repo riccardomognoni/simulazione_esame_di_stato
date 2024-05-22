@@ -65,7 +65,8 @@
 </head>
 
 <body>
-    <div id="formLogin">
+    <div class="container">
+    <div id="formLogin" class="form-box">
         <?php
         //controllo sessione
         if (!isset($_SESSION))
@@ -81,6 +82,7 @@
         <input type="text" name="" id="via" placeholder="via"><br>
         <input type="text" name="" id="citta" placeholder="città"><br>
         <button class="b" type="button" onclick="registra()">Registrati</button><br><br>
+    </div>
     </div>
 </body>
 
