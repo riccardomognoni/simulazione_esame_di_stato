@@ -11,7 +11,7 @@
     <script src="../js/funzionalitaStazioni.js"> </script>
     <script>
         $(document).ready(function(){
-            $.get("../ajax/getStazioni.php", {}, function (data) {
+            $.get("../ajaxStazioni/getStazioni.php", {}, function (data) {
                 let stazioni=data["message"].split(";");
            //controllo se effettua il json parse
                 for(i=0;i<stazioni.length-1;i++){

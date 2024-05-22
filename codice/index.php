@@ -7,7 +7,7 @@
     <title>Noleggio bici</title>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='style/main.css'>
 
@@ -26,18 +26,31 @@
         // Funzione per inizializzare la mappa
         function maps() {
             // Creazione della mappa centrata su Milano
-            var map = L.map('map').setView([45.7342403,9.1302528], 13);
+            var map = L.map('map').setView([45.7342403, 9.1302528], 13);
 
             // Aggiunta del layer di OpenStreetMap
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
 
-            // Aggiunta di un marcatore su Milano
-            L.marker([45.7342403,9.1302528]).addTo(map);
+
+            $.get("ajaxStazioni/getCoordinate.php", {}, function (data) {
+                let stazioni = data["message"].split(";");
+                //controllo se effettua il json parse
+                for (i = 0; i < stazioni.length - 1; i++) {
+                    let stazione = stazioni[i].split(",");
+                    // Aggiunta di un marcatore su Milano
+                    L.marker([stazione[0], stazione[1]]).addTo(map);
+                }
+
+
+
+            }, 'json');
+
+
         }
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             maps();
         });
     </script>
