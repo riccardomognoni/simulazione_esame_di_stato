@@ -22,6 +22,7 @@ function aggiungiStazione() {
     $.get("../ajaxStazioni/addStation.php", { nome: nome, numslot: numslot, via: via,citta: citta, lat:lat,lon:lon }, function (data) {
 
         alert(data["message"]);
+        location.reload();
     }, 'json');
         }
     });
@@ -40,6 +41,7 @@ function modificaStazione(){
         $.get("../ajaxStazioni/updateStation.php", { nome: nome, slot: slot,stazione:idStazione }, function (data) {
 
             alert(data["message"]);
+            location.reload();
         }, 'json');
     }
 
@@ -53,6 +55,7 @@ function rimuoviStazione() {
     $.get("../ajaxStazioni/removeStation.php", { stazione: idStazione }, function (data) {
 
         alert(data["message"]);
+        location.reload();
     }, 'json');
 }
 }

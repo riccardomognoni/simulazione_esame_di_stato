@@ -41,7 +41,6 @@
                     if (data && data.length > 0) {
                         lat = data[0]["lat"];
                         lon = data[0]["lon"];
-                        alert('Latitudine:' + lat + 'Longitudine:' + lon);
 
                         $.get("../ajax/insertUser.php", {
                     email: email, pass: pswMD5, nome: nome, cognome: cognome,
@@ -50,7 +49,7 @@
                     //controllo se effettua il json parse
 
                     alert(data["message"]);
-
+                    location.reload();
 
 
                 }, 'json');

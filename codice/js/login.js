@@ -16,11 +16,13 @@ function login(tipoUtente){
         //richiesta ajax
         $.get("../ajax/checkLogin.php", { email: email, pass: pswMD5,userType: tipoUtente }, function (data) {
             //controllo se effettua il json parse
+            if(data["status"]=="ok"){
                 if (data["message"] == "admin"){
                    window.location.href="paginaAdmin.php";
                 }else{
                     window.location.href="paginaUtente.php";
                 }
+            }
                
 
         }, 'json');

@@ -16,13 +16,12 @@ $psw = $_GET["pass"];
 $nome = $_GET["nome"];
 $cognome = $_GET["cognome"];
 $carta_credito = $_GET["carta_credito"];
-$numero_tessera = random_int(10000, 99999);
 
 
 $via = $_GET["via"];
 $citta = $_GET["citta"];
-$lat=$_GET["lat"];
-$lon=$_GET["lon"];
+$lat = $_GET["lat"];
+$lon = $_GET["lon"];
 
 
 $idIndirizzo;
@@ -48,22 +47,33 @@ if ($result->num_rows == 1) {
     $stmt->execute();
     $idIndirizzo = mysqli_insert_id($conn);
 }
+session_start();
+$id = $_SESSION["ID"];
 
-$sql = "INSERT INTO `cliente`(`nome`, `cognome`, `email`, `password`, `numero_tessera`,`carta_credito`, `IDindirizzo`) VALUES (?,?,?,?,?,?,?)";
-$stmt = $conn->prepare($sql);
+if ($psw == "" || $psw == " ") {
+    $sql = "UPDATE `cliente` SET `nome`=?,`cognome`=?,`email`=?,`carta_credito`=?,`IDindirizzo`=? WHERE ID=$id";
+    $stmt = $conn->prepare($sql);
 
-//metto i parametri
-$stmt->bind_param("ssssisi", $nome, $cognome, $email, $psw, $numero_tessera, $carta_credito, $idIndirizzo);
+    //metto i parametri
+    $stmt->bind_param("ssssi", $nome, $cognome, $email, $carta_credito, $idIndirizzo);
+  
+} else {
+    $sql = "UPDATE `cliente` SET `nome`=?,`cognome`=?,`email`=?,`password`=?,`carta_credito`=?,`IDindirizzo`=? WHERE ID=$id";
+    $stmt = $conn->prepare($sql);
+
+    //metto i parametri
+    $stmt->bind_param("sssssi", $nome, $cognome, $email, $psw, $carta_credito, $idIndirizzo);
+}
 
 
 
 if ($stmt->execute()) {
     //salvo la variabile username in sessione
 
-    $arr = array("status" => "ok", "message" => "utente registrato correttamente");
+    $arr = array("status" => "ok", "message" => "dati aggiornati correttamente");
     echo json_encode($arr);
 
-}else {
+} else {
     $arr = array("status" => "ko", "message" => "errore nella registrazione");
     echo json_encode($arr);
 }
