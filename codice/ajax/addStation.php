@@ -11,26 +11,21 @@ if ($conn->connect_error) {
     throw new Exception("Connection failed: " . $conn->connect_error);
 }
 
-$email = $_GET["email"];
-$psw = $_GET["pass"];
 $nome = $_GET["nome"];
-$cognome = $_GET["cognome"];
-$carta_credito = $_GET["carta_credito"];
-$numero_tessera = random_int(10000, 99999);
+$numslot=$_GET["numslot"];
 
 
 $via = $_GET["via"];
 $citta = $_GET["citta"];
-$cap = $_GET["cap"];
-$provincia = $_GET["provincia"];
-$regione = $_GET["regione"];
+$lat=$_GET["lat"];
+$lon=$_GET["lon"];
 
 $idIndirizzo;
-$sql = "SELECT * FROM indirizzo WHERE via = ? AND cap = ?";
+$sql = "SELECT * FROM indirizzo WHERE via = ? AND citta = ?";
 $stmt = $conn->prepare($sql);
 
 //metto i parametri
-$stmt->bind_param("si", $via, $cap);
+$stmt->bind_param("ss", $via, $cap);
 $stmt->execute();
 
 
@@ -40,27 +35,27 @@ $row = $result->fetch_assoc();
 if ($result->num_rows == 1) {
     $idIndirizzo = $row["ID"];
 } else {
-    $sql = "INSERT INTO `indirizzo`(`via`, `citta`, `CAP`, `provincia`, `regione`) VALUES (?,?,?,?,?)";
+    $sql = "INSERT INTO `indirizzo`(`via`, `citta`, `latitudine`, `longitudine`) VALUES (?,?,?,?)";
     $stmt = $conn->prepare($sql);
 
     //metto i parametri
-    $stmt->bind_param("ssiss", $via, $citta, $cap, $provincia, $regione);
+    $stmt->bind_param("ssss", $via, $citta, $lat, $lon);
     $stmt->execute();
     $idIndirizzo = mysqli_insert_id($conn);
 }
 
-$sql = "INSERT INTO `cliente`(`nome`, `cognome`, `email`, `password`, `numero_tessera`,`carta_credito`, `IDindirizzo`) VALUES (?,?,?,?,?,?,?)";
+$sql = "INSERT INTO `stazione`(`nome`, `numero_slot`, `IDindirizzo`) VALUES (?,?,?)";
 $stmt = $conn->prepare($sql);
 
 //metto i parametri
-$stmt->bind_param("ssssisi", $nome, $cognome, $email, $psw, $numero_tessera, $carta_credito, $idIndirizzo);
+$stmt->bind_param("ssi", $nome, $numslot,$idIndirizzo);
 
 
 
 if ($stmt->execute()) {
     //salvo la variabile username in sessione
 
-    $arr = array("status" => "ok", "message" => "utente registrato correttamente");
+    $arr = array("status" => "ok", "message" => "stazione aggiunta correttamente");
     echo json_encode($arr);
 
 }else {

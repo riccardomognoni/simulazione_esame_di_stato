@@ -1,8 +1,8 @@
 let lat="";
 let lon="";
 
-function getCoordinate(){
-    var url = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent("Via Crotto 21/c Cantù");
+function getCoordinate(via,citta){
+    var url = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(via+" "+citta);
           
     $.getJSON(url, function (data) {
         if (data && data.length > 0) {
@@ -25,10 +25,10 @@ function aggiungiStazione() {
 
     let citta = $("#citta").val();
 
-    
+    getCoordinate(via,citta);
 
     //richiesta ajax
-    $.get("../ajax/insertUser.php", { nome: nome, numslot: numslot, via: via, cap: cap, citta: citta, provincia: provincia, regione: regione }, function (data) {
+    $.get("../ajax/addStation.php", { nome: nome, numslot: numslot, via: via,citta: citta, lat:lat,lon:lon }, function (data) {
 
         alert(data["message"]);
     }, 'json');
