@@ -7,9 +7,27 @@
     <link href="../style/loginStyle.css" rel="stylesheet">
     <script src="../js/login.js">
 
+
     </script>
 
     <script>
+        let lat = "";
+        let lon = "";
+
+        function getCoordinate(via, citta) {
+            var url = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(via + " " + citta);
+
+            $.getJSON(url, function (data) {
+                if (data && data.length > 0) {
+                    lat = data[0]["lat"];
+                    lon = data[0]["lon"];
+                    alert('Latitudine:' + lat + 'Longitudine:' + lon);
+                }
+            });
+        }
+
+
+
         function registra() {
             //prendo e controllo se i campi sono compilati
             let email = $("#email").val();
@@ -22,7 +40,7 @@
             let via = $("#via").val();
             let citta = $("#citta").val();
 
-
+            getCoordinate(via,citta);
 
 
             if (email == "" || pass == "") {
@@ -33,12 +51,14 @@
                 //crypta password
                 let pswMD5 = CryptoJS.MD5(pass).toString();
                 //richiesta ajax
-                $.get("../ajax/insertUser.php", { email: email, pass: pswMD5, nome:nome, cognome:cognome, 
-                    carta_credito:carta_credito, via:via, cap:cap, citta:citta, provincia:provincia, regione:regione }, function (data) {
+                $.get("../ajax/insertUser.php", {
+                    email: email, pass: pswMD5, nome: nome, cognome: cognome,
+                    carta_credito: carta_credito, via: via, citta: citta, lat:lat, lon:lon
+                }, function (data) {
                     //controllo se effettua il json parse
-                 
-                        alert(data["message"]);
-                    
+
+                    alert(data["message"]);
+
 
 
                 }, 'json');

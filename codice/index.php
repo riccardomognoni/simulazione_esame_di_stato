@@ -26,7 +26,7 @@
         // Funzione per inizializzare la mappa
         function maps() {
             // Creazione della mappa centrata su Milano
-            var map = L.map('map').setView([45.7468552,9.1287876], 13);
+            var map = L.map('map').setView([45.7342403,9.1302528], 13);
 
             // Aggiunta del layer di OpenStreetMap
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -34,7 +34,7 @@
             }).addTo(map);
 
             // Aggiunta di un marcatore su Milano
-            L.marker([45.7468552,9.1287876]).addTo(map);
+            L.marker([45.7342403,9.1302528]).addTo(map);
         }
 
         $(document).ready(function() {
