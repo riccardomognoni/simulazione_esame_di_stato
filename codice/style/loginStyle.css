@@ -49,14 +49,14 @@ button {
     margin-top: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #4caf50; /* Green background color */
+    background-color: #008CBA; /* Azzurro */
     color: white;
     cursor: pointer; /* Pointer cursor on hover */
 }
 
 /* Change background color on hover for the button */
 button:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #007BB5; /* Azzurro scuro */
 }
 
 /* Utility class for centering elements */

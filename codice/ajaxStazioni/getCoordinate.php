@@ -13,7 +13,7 @@ global $host, $user, $psw, $dbname;
 
     
    
-        $sql = "SELECT indirizzo.latitudine, indirizzo.longitudine, stazione.nome FROM indirizzo
+        $sql = "SELECT indirizzo.latitudine, indirizzo.longitudine, stazione.nome, indirizzo.via FROM indirizzo
         JOIN stazione ON stazione.IDindirizzo=indirizzo.ID;";
         $stmt = $conn->prepare($sql);
         
@@ -27,7 +27,7 @@ global $host, $user, $psw, $dbname;
     $result = $stmt->get_result();
     while ($row = $result->fetch_assoc()) {
         //salvo la variabile username in sessione
-      $message.=$row["latitudine"].",".$row["longitudine"].",".$row["nome"].";";
+      $message.=$row["latitudine"].",".$row["longitudine"].",".$row["nome"].",".$row["via"].";";
     }  
         $arr = array("status" => "ok", "message" => $message);
         echo json_encode($arr);

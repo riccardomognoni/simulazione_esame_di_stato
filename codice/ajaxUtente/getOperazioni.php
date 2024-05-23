@@ -13,26 +13,24 @@ global $host, $user, $psw, $dbname;
 
     
    
-        $sql = "SELECT cliente.nome,cliente.cognome,cliente.email,cliente.carta_credito, indirizzo.via, indirizzo.citta
-        FROM cliente
-        JOIN indirizzo on indirizzo.ID=cliente.IDindirizzo
-        WHERE cliente.ID=?";
+        $sql = "SELECT operazione.tipo,operazione.orario,operazione.tariffa,operazione.distanza_percorsa , 
+            stazione.nome FROM operazione JOIN stazione
+         ON stazione.ID=operazione.IDstazione WHERE operazione.IDcliente=? ";
+         
         $stmt = $conn->prepare($sql);
-    
-        //metto i parametri
-    session_start();
+        session_start();
         $id=$_SESSION["ID"];
     $stmt->bind_param("i", $id);
     
     $stmt->execute();
+
     $message="";
 
     //controllo se ha trovato qualcosa
     $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
-    if ($result->num_rows == 1)  {
+    while ($row = $result->fetch_assoc()) {
         //salvo la variabile username in sessione
-      $message.=$row["nome"].";".$row["cognome"].";".$row["email"].";".$row["carta_credito"].";".$row["via"].";".$row["citta"];
+      $message.=$row["tipo"].",".$row["orario"].",".$row["tariffa"].",".$row["distanza_percorsa"].",".$row["nome"].";";
     }  
         $arr = array("status" => "ok", "message" => $message);
         echo json_encode($arr);

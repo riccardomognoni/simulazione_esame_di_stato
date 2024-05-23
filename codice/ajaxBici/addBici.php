@@ -18,7 +18,7 @@ $rfid=$_GET["rfid"];
 
 $km=0;
 
-$attiva=1;
+$attiva=true;
 
 $sql = "INSERT INTO `bicicletta`(`KMtotali`, `gps`, `RFID`, `attiva`)  VALUES (?,?,?,?)";
 $stmt = $conn->prepare($sql);

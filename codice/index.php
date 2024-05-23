@@ -14,13 +14,6 @@
     <!-- Make sure you put this AFTER Leaflet's CSS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-    <style>
-        /* Stile per la mappa */
-        #map {
-            height: 400px;
-            width: 100%;
-        }
-    </style>
 
     <script>
         // Funzione per inizializzare la mappa
@@ -33,26 +26,19 @@
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
 
-
             $.get("ajaxStazioni/getCoordinate.php", {}, function (data) {
                 let stazioni = data["message"].split(";");
-                //controllo se effettua il json parse
+                // controllo se effettua il json parse
                 for (i = 0; i < stazioni.length - 1; i++) {
                     let stazione = stazioni[i].split(",");
                     // Aggiunta di un marcatore su Milano
-                   let marker= L.marker([stazione[0], stazione[1]]).addTo(map);
-                   marker.bindPopup(stazione[2]);
-
-                   marker.on('click',function (){
-                    marker.openPopup();
-                   });
+                    let marker = L.marker([stazione[0], stazione[1]]).addTo(map);
+                    marker.bindPopup("<b>" + stazione[2] + "</b><br><i>"+stazione[3]+"</i>");
+                    marker.on('click', function () {
+                        marker.openPopup();
+                    });
                 }
-
-
-
             }, 'json');
-
-
         }
 
         $(document).ready(function () {
@@ -62,8 +48,13 @@
 </head>
 
 <body>
-    <button onclick="window.location.href='pages/login.php'">Accedi</button>
-    <button onclick="window.location.href='pages/registra.php'">Registrati</button>
+    <div class="navbar">
+        <h1>Noleggio Bici</h1>
+        <div>
+            <button onclick="window.location.href='pages/login.php'">Accedi</button>
+            <button onclick="window.location.href='pages/registra.php'">Registrati</button>
+        </div>
+    </div>
 
     <!-- Contenitore per la mappa -->
     <div id="map"></div>

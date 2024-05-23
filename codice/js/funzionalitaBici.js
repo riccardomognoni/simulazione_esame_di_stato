@@ -13,7 +13,6 @@ function aggiungiBici() {
     //richiesta ajax
     $.get("../ajaxBici/addBici.php", { gps: gps, rfid: rfid }, function (data) {
 
-        alert(data["message"]);
         //richiesta ajax
         idbici=data["message"];
         $.get("../REST/createOperation.php", { operazione: operazione, distanza: distanza, IDutente: idutente,IDbici: idbici, IDstazione: stazione }, function (data) {

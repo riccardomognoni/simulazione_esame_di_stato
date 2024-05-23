@@ -17,9 +17,33 @@ $idStazione = $_GET["IDstazione"];
 $operazione = $_GET["operazione"];
 $distanza = $_GET["distanza"];
 $tariffa = $distanza * 0.80;
-$ora = date('d/m/Y H:i');
+$ora = date('Y/m/d H:i:s');
 
+if ($operazione == "riconsegna") {
+    $sql = "SELECT `KMtotali` FROM `bicicletta` WHERE ID=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $idBici);
 
+    $stmt->execute();
+
+    $km = 0;
+
+    //controllo se ha trovato qualcosa
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    if ($result->num_rows == 1) {
+
+        $km = $row["KMtotali"];
+    }
+
+    $sql = "UPDATE `bicicletta` SET `KMtotali`=? WHERE ID=$idBici";
+    $stmt = $conn->prepare($sql);
+
+    $km = $km + $distanza;
+    $stmt->bind_param("i", $km);
+
+    $stmt->execute();
+}
 
 if ($idUtente == 0) {
     $sql = "INSERT INTO `operazione`(`tipo`, `orario`, `tariffa`, `distanza_percorsa`, `IDbicicletta`, `IDstazione`) VALUES (?,?,?,?,?,?)";
@@ -48,4 +72,5 @@ if ($stmt->execute()) {
     $arr = array("status" => "ko", "message" => "errore nell eseguzione");
     echo json_encode($arr);
 }
+
 

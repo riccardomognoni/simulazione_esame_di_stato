@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 22, 2024 alle 18:56
+-- Creato il: Mag 23, 2024 alle 17:35
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -50,8 +50,7 @@ INSERT INTO `admin` (`ID`, `nome`, `cognome`, `email`, `password`) VALUES
 
 CREATE TABLE `bicicletta` (
   `ID` int(11) NOT NULL,
-  `distanza_totale` float NOT NULL,
-  `posizione_attuale` varchar(64) NOT NULL,
+  `KMtotali` float NOT NULL,
   `gps` varchar(16) NOT NULL,
   `RFID` varchar(16) NOT NULL,
   `attiva` tinyint(1) NOT NULL
@@ -61,10 +60,11 @@ CREATE TABLE `bicicletta` (
 -- Dump dei dati per la tabella `bicicletta`
 --
 
-INSERT INTO `bicicletta` (`ID`, `distanza_totale`, `posizione_attuale`, `gps`, `RFID`, `attiva`) VALUES
-(1, 0, 'Via Roma 1', 'GPS001', 'RFID001', 1),
-(2, 0, 'Via Milano 2', 'GPS002', 'RFID002', 1),
-(3, 0, 'Via Napoli 3', 'GPS003', 'RFID003', 1);
+INSERT INTO `bicicletta` (`ID`, `KMtotali`, `gps`, `RFID`, `attiva`) VALUES
+(1, 0, 'GPS001', 'RFID001', 1),
+(2, 0, 'GPS002', 'RFID002', 1),
+(3, 0, 'GPS003', 'RFID003', 1),
+(6, 27, 'GPS004', 'RFID004', 0);
 
 -- --------------------------------------------------------
 
@@ -114,7 +114,8 @@ INSERT INTO `indirizzo` (`ID`, `via`, `citta`, `latitudine`, `longitudine`) VALU
 (9, 'Via Vergani ', 'CantÃ¹', '45.7445157', '9.1292519'),
 (15, 'Via Giacomo Matteotti', 'CantÃ¹', '45.7378528', '9.1284712'),
 (17, 'Via Verdi', 'CantÃ¹', '45.7237463', '9.119811'),
-(18, 'Piazza Garibaldi', 'CantÃ¹', '45.7397039', '9.1286697');
+(18, 'Piazza Garibaldi', 'CantÃ¹', '45.7397039', '9.1286697'),
+(19, 'Via Como', 'CantÃ¹', '45.7541878', '9.1236119');
 
 -- --------------------------------------------------------
 
@@ -125,14 +126,28 @@ INSERT INTO `indirizzo` (`ID`, `via`, `citta`, `latitudine`, `longitudine`) VALU
 CREATE TABLE `operazione` (
   `ID` int(11) NOT NULL,
   `tipo` enum('noleggio','riconsegna') NOT NULL,
-  `data` date NOT NULL,
   `orario` datetime NOT NULL,
   `tariffa` float NOT NULL,
   `distanza_percorsa` float NOT NULL,
-  `IDcliente` int(11) NOT NULL,
+  `IDcliente` int(11) DEFAULT NULL,
   `IDbicicletta` int(11) NOT NULL,
   `IDstazione` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dump dei dati per la tabella `operazione`
+--
+
+INSERT INTO `operazione` (`ID`, `tipo`, `orario`, `tariffa`, `distanza_percorsa`, `IDcliente`, `IDbicicletta`, `IDstazione`) VALUES
+(7, 'noleggio', '2024-05-23 16:33:30', 0, 0, 18, 1, 6),
+(8, 'riconsegna', '2024-05-23 16:33:42', 5.6, 7, 18, 1, 6),
+(10, 'riconsegna', '2024-05-23 16:35:11', 0, 0, NULL, 2, 6),
+(11, 'riconsegna', '2024-05-23 16:35:19', 0, 0, NULL, 3, 5),
+(12, 'riconsegna', '2024-05-23 17:16:03', 0, 0, NULL, 6, 8),
+(13, 'noleggio', '2024-05-23 17:17:36', 0, 0, 17, 6, 8),
+(14, 'riconsegna', '2024-05-23 17:17:50', 9.6, 12, 17, 6, 7),
+(15, 'noleggio', '2024-05-23 17:33:48', 0, 0, 17, 6, 7),
+(16, 'riconsegna', '2024-05-23 17:34:19', 21.6, 27, 17, 6, 8);
 
 -- --------------------------------------------------------
 
@@ -154,7 +169,8 @@ CREATE TABLE `stazione` (
 INSERT INTO `stazione` (`ID`, `nome`, `numero_slot`, `IDindirizzo`) VALUES
 (5, 'stazione 1', 14, 7),
 (6, 'stazione 2', 24, 9),
-(7, 'stazione 3', 45, 18);
+(7, 'stazione 3', 45, 18),
+(8, 'stazione 4', 15, 19);
 
 --
 -- Indici per le tabelle scaricate
@@ -221,7 +237,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT per la tabella `bicicletta`
 --
 ALTER TABLE `bicicletta`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT per la tabella `cliente`
@@ -233,19 +249,19 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT per la tabella `indirizzo`
 --
 ALTER TABLE `indirizzo`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT per la tabella `operazione`
 --
 ALTER TABLE `operazione`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT per la tabella `stazione`
 --
 ALTER TABLE `stazione`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Limiti per le tabelle scaricate
