@@ -13,8 +13,7 @@ global $host, $user, $psw, $dbname;
 
     
    
-        $sql = "SELECT indirizzo.latitudine, indirizzo.longitudine, stazione.nome FROM indirizzo
-        JOIN stazione ON stazione.IDindirizzo=indirizzo.ID;";
+        $sql = "SELECT * FROM bicicletta ";
         $stmt = $conn->prepare($sql);
         
         //metto i parametr
@@ -27,7 +26,7 @@ global $host, $user, $psw, $dbname;
     $result = $stmt->get_result();
     while ($row = $result->fetch_assoc()) {
         //salvo la variabile username in sessione
-      $message.=$row["latitudine"].",".$row["longitudine"].",".$row["nome"].";";
+      $message.=$row["ID"].",".$row["RFID"].";";
     }  
         $arr = array("status" => "ok", "message" => $message);
         echo json_encode($arr);

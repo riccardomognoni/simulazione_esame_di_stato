@@ -11,6 +11,9 @@
         function goToStazioni(){
             window.location.href="paginaStazioni.php";
         }
+        function goToBici(){
+            window.location.href="paginaBici.php";
+        }
     </script>
 </head>
 
@@ -26,7 +29,7 @@
       
         
         <button class="b" type="button" onclick="goToStazioni()">Aggiungi/Rimuovi Stazione</button><br><br>
-        <button class="b" type="button" onclick="deleteStazione()">Aggiungi/Rimuovi Bicicletta</button><br><br>
+        <button class="b" type="button" onclick="goToBici()">Aggiungi/Rimuovi Bicicletta</button><br><br>
         <button class="b" type="button" onclick="logout()">logout</button><br><br>
     </div>
     </div>

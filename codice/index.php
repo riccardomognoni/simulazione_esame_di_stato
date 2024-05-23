@@ -40,7 +40,12 @@
                 for (i = 0; i < stazioni.length - 1; i++) {
                     let stazione = stazioni[i].split(",");
                     // Aggiunta di un marcatore su Milano
-                    L.marker([stazione[0], stazione[1]]).addTo(map);
+                   let marker= L.marker([stazione[0], stazione[1]]).addTo(map);
+                   marker.bindPopup(stazione[2]);
+
+                   marker.on('click',function (){
+                    marker.openPopup();
+                   });
                 }
 
 

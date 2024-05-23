@@ -11,24 +11,25 @@ global $host, $user, $psw, $dbname;
         throw new Exception("Connection failed: " . $conn->connect_error);
     }
 
-    
+    $bici = $_GET["bici"];
    
-        $sql = "SELECT indirizzo.latitudine, indirizzo.longitudine, stazione.nome FROM indirizzo
-        JOIN stazione ON stazione.IDindirizzo=indirizzo.ID;";
+        $sql =" DELETE FROM `bicicletta` WHERE ID=?";
         $stmt = $conn->prepare($sql);
         
-        //metto i parametr
-    
-    $stmt->execute();
+        //metto i parametri
+        $stmt->bind_param("i", $bici);
+       
 
-    $message="";
 
     //controllo se ha trovato qualcosa
-    $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
+
+    if (  $stmt->execute()) {
         //salvo la variabile username in sessione
-      $message.=$row["latitudine"].",".$row["longitudine"].",".$row["nome"].";";
-    }  
-        $arr = array("status" => "ok", "message" => $message);
+      
+        $arr = array("status" => "ok", "message" => "bici eliminata con successo");
         echo json_encode($arr);
- 
+    } else {
+        $arr = array("status" => "ko", "message" => "errore nell'eliminazione");
+        echo json_encode($arr);
+    }
+
