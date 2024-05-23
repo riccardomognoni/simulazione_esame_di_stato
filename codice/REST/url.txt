@@ -1,0 +1,1 @@
+REST/createOperation.php?operazione=riconsegna&distanza=0&IDutente=17&IDbici=1&IDstazione=6
