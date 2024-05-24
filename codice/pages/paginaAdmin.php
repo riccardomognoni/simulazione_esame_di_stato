@@ -19,6 +19,9 @@
         function goToBici() {
             window.location.href = "paginaBici.php";
         }
+        function goToTessereBloccate(){
+            window.location.href = "paginaSbloccoTessera.php";
+        }
     </script>
 
     <script>
@@ -65,6 +68,7 @@
         <div class="buttons">
             <button class="b" type="button" onclick="goToStazioni()">Aggiungi/Rimuovi Stazione</button><br><br>
             <button class="b" type="button" onclick="goToBici()">Aggiungi/Rimuovi Bicicletta</button><br><br>
+            <button class="b" type="button" onclick="goToTessereBloccate()">Visualizza tessere bloccate</button><br><br>
             <button class="b" type="button" onclick="logout()">logout</button><br><br>
         </div>
     </div>

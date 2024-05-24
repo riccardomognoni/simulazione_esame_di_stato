@@ -31,8 +31,7 @@ function aggiornaDati(){
 
                 $.get("../ajaxUtente/updateDati.php", {
             email: email, pass: pswMD5, nome: nome, cognome: cognome,
-            carta_credito: carta_credito, via: via, citta: citta, lat: lat, lon: lon
-        }, function (data) {
+            carta_credito: carta_credito, via: via, citta: citta, lat: lat, lon: lon}, function (data) {
             //controllo se effettua il json parse
 
             alert(data["message"]);
@@ -46,4 +45,15 @@ function aggiornaDati(){
       
     }
  
+}
+
+
+function bloccaTessera(){
+    $.get("../ajaxUtente/bloccaTessera.php", {}, function (data) {
+
+        alert(data["message"]);
+       location.reload();
+
+
+    }, 'json');
 }

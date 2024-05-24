@@ -36,7 +36,7 @@
             <h2>Aggiungi Stazione</h2>
             <input type="text" name="nome" id="nome" placeholder="Nome" required><br>
             <input type="number" name="numslot" id="numslot" placeholder="Numero di slot" required><br>
-            <label for="via">Indirizzo:</label>
+            Indirizzo:
             <input type="text" name="" id="via" placeholder="Via" required><br>
             <input type="text" name="" id="citta" placeholder="Città" required><br>
 

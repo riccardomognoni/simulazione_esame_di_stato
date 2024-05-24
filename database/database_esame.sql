@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 23, 2024 alle 17:35
+-- Creato il: Mag 24, 2024 alle 09:20
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -53,7 +53,7 @@ CREATE TABLE `bicicletta` (
   `KMtotali` float NOT NULL,
   `gps` varchar(16) NOT NULL,
   `RFID` varchar(16) NOT NULL,
-  `attiva` tinyint(1) NOT NULL
+  `attiva` enum('1','0') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -61,10 +61,12 @@ CREATE TABLE `bicicletta` (
 --
 
 INSERT INTO `bicicletta` (`ID`, `KMtotali`, `gps`, `RFID`, `attiva`) VALUES
-(1, 0, 'GPS001', 'RFID001', 1),
-(2, 0, 'GPS002', 'RFID002', 1),
-(3, 0, 'GPS003', 'RFID003', 1),
-(6, 27, 'GPS004', 'RFID004', 0);
+(1, 0, 'GPS001', 'RFID001', '1'),
+(2, 0, 'GPS002', 'RFID002', '1'),
+(3, 13, 'GPS003', 'RFID003', '1'),
+(6, 27, 'GPS004', 'RFID004', '1'),
+(7, 0, 'GPS005', 'RFID005', '1'),
+(8, 0, 'GPS006', 'RFID006', '1');
 
 -- --------------------------------------------------------
 
@@ -80,16 +82,19 @@ CREATE TABLE `cliente` (
   `password` varchar(32) NOT NULL,
   `numero_tessera` int(5) NOT NULL,
   `carta_credito` varchar(16) NOT NULL,
-  `IDindirizzo` int(11) NOT NULL
+  `IDindirizzo` int(11) NOT NULL,
+  `bloccata` enum('no','si') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dump dei dati per la tabella `cliente`
 --
 
-INSERT INTO `cliente` (`ID`, `nome`, `cognome`, `email`, `password`, `numero_tessera`, `carta_credito`, `IDindirizzo`) VALUES
-(17, 'Luca ', 'Bes', 'lucabesh@gmail.com', '0e727e10ae5fdc2b926ea06c8a41aceb', 93532, '2222333322223333', 15),
-(18, 'Riccardo', 'Mognoni', 'riccardomognoni@gmail.com', '8ca432e2f074d100b0348b1cda090c27', 29017, '1111222233334444', 17);
+INSERT INTO `cliente` (`ID`, `nome`, `cognome`, `email`, `password`, `numero_tessera`, `carta_credito`, `IDindirizzo`, `bloccata`) VALUES
+(17, 'Luca ', 'Bes', 'lucabesh@gmail.com', '0e727e10ae5fdc2b926ea06c8a41aceb', 23775, '2222333322223333', 15, 'no'),
+(18, 'Riccardo', 'Mognoni', 'riccardomognoni@gmail.com', '8ca432e2f074d100b0348b1cda090c27', 94447, '1111222233334444', 17, 'no'),
+(19, 'Andrea', 'Finazzi', 'finazzi@gmail.com', '7e7f899d4918c18f9b755cad3ee2fb24', 83513, '1111888899992222', 20, 'si'),
+(20, 'Tommaso', 'Brivio', 'brivio@gmail.com', '76c813ba89cbaaff8f61d958b639c11d', 94793, '1222122212221222', 21, 'si');
 
 -- --------------------------------------------------------
 
@@ -115,7 +120,11 @@ INSERT INTO `indirizzo` (`ID`, `via`, `citta`, `latitudine`, `longitudine`) VALU
 (15, 'Via Giacomo Matteotti', 'CantÃ¹', '45.7378528', '9.1284712'),
 (17, 'Via Verdi', 'CantÃ¹', '45.7237463', '9.119811'),
 (18, 'Piazza Garibaldi', 'CantÃ¹', '45.7397039', '9.1286697'),
-(19, 'Via Como', 'CantÃ¹', '45.7541878', '9.1236119');
+(19, 'Via Como', 'CantÃ¹', '45.7541878', '9.1236119'),
+(20, 'Via leonCavallo', 'Giussano', '45.6855136', '9.2065622'),
+(21, 'Via Milano 17', 'CantÃ¹', '45.7264686', '9.1421666'),
+(23, 'Via Milano 7', 'CantÃ¹', '45.7342403', '9.1302528'),
+(24, 'Via Virgilio', 'CantÃ¹', '45.747899', '9.1384284');
 
 -- --------------------------------------------------------
 
@@ -147,7 +156,11 @@ INSERT INTO `operazione` (`ID`, `tipo`, `orario`, `tariffa`, `distanza_percorsa`
 (13, 'noleggio', '2024-05-23 17:17:36', 0, 0, 17, 6, 8),
 (14, 'riconsegna', '2024-05-23 17:17:50', 9.6, 12, 17, 6, 7),
 (15, 'noleggio', '2024-05-23 17:33:48', 0, 0, 17, 6, 7),
-(16, 'riconsegna', '2024-05-23 17:34:19', 21.6, 27, 17, 6, 8);
+(16, 'riconsegna', '2024-05-23 17:34:19', 21.6, 27, 17, 6, 8),
+(17, 'noleggio', '2024-05-24 09:15:26', 0, 0, 18, 3, 11),
+(19, 'riconsegna', '2024-05-24 09:16:11', 10.4, 13, 18, 3, 10),
+(20, 'riconsegna', '2024-05-24 09:18:23', 0, 0, NULL, 7, 11),
+(21, 'riconsegna', '2024-05-24 09:19:42', 0, 0, NULL, 8, 10);
 
 -- --------------------------------------------------------
 
@@ -170,7 +183,9 @@ INSERT INTO `stazione` (`ID`, `nome`, `numero_slot`, `IDindirizzo`) VALUES
 (5, 'stazione 1', 14, 7),
 (6, 'stazione 2', 24, 9),
 (7, 'stazione 3', 45, 18),
-(8, 'stazione 4', 15, 19);
+(8, 'stazione 4', 15, 19),
+(10, 'stazione 5', 12, 23),
+(11, 'stazione 6', 9, 24);
 
 --
 -- Indici per le tabelle scaricate
@@ -237,31 +252,31 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT per la tabella `bicicletta`
 --
 ALTER TABLE `bicicletta`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT per la tabella `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT per la tabella `indirizzo`
 --
 ALTER TABLE `indirizzo`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT per la tabella `operazione`
 --
 ALTER TABLE `operazione`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT per la tabella `stazione`
 --
 ALTER TABLE `stazione`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Limiti per le tabelle scaricate

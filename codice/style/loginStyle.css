@@ -30,7 +30,7 @@ h2 {
 }
 
 /* Styling for all input elements and select elements */
-input[type="text"],
+label,input[type="text"],
 select,
 input[type="password"],
 input[type="number"] {

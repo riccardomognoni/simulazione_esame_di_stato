@@ -11,30 +11,31 @@ if ($conn->connect_error) {
     throw new Exception("Connection failed: " . $conn->connect_error);
 }
 
-$gps = $_GET["gps"];
-$rfid=$_GET["rfid"];
+$id = $_GET["IDutente"];
+$bloccata = "no";
+$tessera= random_int(10000, 99999);
 
 
 
-$km=0;
 
-$attiva=1;
 
-$sql = "INSERT INTO `bicicletta`(`KMtotali`, `gps`, `RFID`, `attiva`)  VALUES (?,?,?,?)";
-$stmt = $conn->prepare($sql);
 
-//metto i parametri
-$stmt->bind_param("dsss", $km,$gps, $rfid,$attiva);
+    $sql = "UPDATE `cliente` SET `bloccata`=?,`numero_tessera`=? WHERE ID=$id";
+    $stmt = $conn->prepare($sql);
+
+    //metto i parametri
+    $stmt->bind_param("si", $bloccata, $tessera);
+
 
 
 
 if ($stmt->execute()) {
     //salvo la variabile username in sessione
-    $idBici = mysqli_insert_id($conn);
-    $arr = array("status" => "ok", "message" => $idBici);
+
+    $arr = array("status" => "ok", "message" => "carta rigenerata correttamente");
     echo json_encode($arr);
 
-}else {
+} else {
     $arr = array("status" => "ko", "message" => "errore");
     echo json_encode($arr);
 }

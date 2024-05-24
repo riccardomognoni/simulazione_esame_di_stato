@@ -23,6 +23,9 @@
         function logout() {
             window.location.href = "logout.php";
         }
+        function goToTessera() {
+            window.location.href = "paginaTessera.php";
+        }
     </script>
 
     <script>
@@ -72,6 +75,7 @@
         <div class="buttons">
             <button type="button" onclick="goToProfilo()">Visualizza Profilo</button>
             <button type="button" onclick="goToRiepilogo()">Visualizza Riepiloghi</button>
+            <button type="button" onclick="goToTessera()">Tessera Smarrita?</button>
             <button type="button" onclick="logout()">Logout</button>
         </div>
     </div>
